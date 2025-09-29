@@ -22,6 +22,15 @@ class NoDiscount(PricingStrategy):
     # TODO: Implement a strategy that returns the original value without changes
     def apply(self, subtotal: float, items: list[LineItem]) -> float:
         return round(subtotal, 2)
+    
+class HalfOff(PricingStrategy):
+    def __init__(self, percent: float) -> None:
+        assert percent == 50
+        self.percent = percent
+
+    def apply(self, subtotal: float, items: list[LineItem]) -> float:
+        discount = subtotal * (self.percent / 100.0)
+        return round(subtotal - discount, 2)
 
 
 class PercentageDiscount(PricingStrategy):
